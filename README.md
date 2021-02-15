@@ -1,5 +1,5 @@
 # SocketIO-Chat
-Let's learn socket.io with official demo !
+Let's learn socket.io with the official demo !
 <br><br>
 ## 💡 We can get this following to official demo
 1. Overall flow of socket.io
