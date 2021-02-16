@@ -25,6 +25,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 let numUsers = 0;
+let userList = [];
 
 app.io.on('connection', (socket) => {
   let addedUser = false;
@@ -46,7 +47,9 @@ app.io.on('connection', (socket) => {
     socket.username = username;
     ++numUsers;
     addedUser = true;
+    userList.push(username);
     socket.emit('login', {
+      userList: userList,
       numUsers: numUsers
     });
     // echo globally (all clients) that a person has connected
@@ -74,11 +77,19 @@ app.io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     if (addedUser) {
       --numUsers;
+      
+      if(numUsers == 0){
+        userList.length = 0;
+      } else {
+        const idx = userList.indexOf(socket.username);
+        userList.splice(idx, 1);
+      }
 
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
-        numUsers: numUsers
+        numUsers: numUsers,
+        userList: userList
       });
     }
   });

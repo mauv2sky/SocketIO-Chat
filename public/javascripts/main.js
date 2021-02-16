@@ -12,9 +12,10 @@ $(function() {
     const $usernameInput = $('.usernameInput');
     const $message = $('.messages');
     const $inputMessage = $('.inputMessage');
+    const $members = $('.members');
 
-    const $loginPage = $('.loginPage');
-    const $chatPage = $('.chatPage .page');
+    const $loginPage = $('.login.page');
+    const $chatPage = $('.chat.page');
 
     const socket = io();
 
@@ -24,6 +25,25 @@ $(function() {
     let typing = false;
     let lastTypingTime;
     let $currentInput = $usernameInput.focus();
+
+    // load the memberlist
+    const loadMemberList = (data) => {
+        $('.member').fadeOut(function(){
+            $(this).remove();
+        });
+        const userList = data.userList;
+        for(var i=0; i<userList.length; i++){
+            const $el = $('<li>').addClass('member').text(userList[i]);
+            $members.append($el);
+        }
+    }
+
+    // add username to member list
+    const addMemberToList = (data) => {
+        const username = data.username;
+        const $el = $('<li>').addClass('member').text(username);
+        $members.append($el);
+    }
 
     // pass connected user count
     const addParticipantsMessage = (data) => {
@@ -237,6 +257,7 @@ $(function() {
         prepend: true
         });
         addParticipantsMessage(data);
+        loadMemberList(data);
     });
 
     // Whenever the server emits 'new message', update the chat body
@@ -248,6 +269,7 @@ $(function() {
     socket.on('user joined', (data) => {
         log(`${data.username} joined`);
         addParticipantsMessage(data);
+        addMemberToList(data);
     });
 
     // Whenever the server emits 'user left', log it in the chat body
@@ -255,6 +277,7 @@ $(function() {
         log(`${data.username} left`);
         addParticipantsMessage(data);
         removeChatTyping(data);
+        loadMemberList(data);
     });
 
     // Whenever the server emits 'typing', show the typing message

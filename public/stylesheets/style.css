@@ -48,11 +48,11 @@ ul {
 
 /* Login Page */
 
-.loginPage .page {
+.login.page {
   background-color: #000;
 }
 
-.loginPage .page .form {
+.login.page .form {
   height: 100px;
   margin-top: -100px;
   position: absolute;
@@ -62,7 +62,7 @@ ul {
   width: 100%;
 }
 
-.loginPage .page .form .usernameInput {
+.login.page .form .usernameInput {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #fff;
@@ -72,24 +72,30 @@ ul {
   width: 400px;
 }
 
-.loginPage .page .title {
+.login.page .title {
   font-size: 200%
 }
 
-.loginPage .page .usernameInput {
+.login.page .usernameInput {
   font-size: 200%;
   letter-spacing: 3px;
 }
 
-.loginPage .page .title, .loginPage .page .usernameInput {
+.login.page .title, .login.page .usernameInput {
   color: #fff;
   font-weight: 100;
 }
 
 /* Chat Page */
 
-.chatPage .page {
+.chat.page {
   display: none;
+  display: flex;
+}
+
+.chatArea {
+  height: 100%;
+  width: 80%;
 }
 
 /* Font */
@@ -111,7 +117,7 @@ ul {
 
 /* Messages */
 
-.chatArea {
+.chatBoard {
   height: 100%;
   padding-bottom: 60px;
 }
@@ -145,5 +151,19 @@ ul {
   padding-left: 10px;
   position: absolute;
   right: 0;
+  width: 80%;
+}
+
+/* Member List */
+
+.memList {
+  float: right;
+  height: 100%;
+  width: 20%;
+  overflow-y: scroll;
+}
+
+.members {
+  height: 100%;
   width: 100%;
 }

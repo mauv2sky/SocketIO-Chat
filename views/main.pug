@@ -11,13 +11,15 @@ html
 
     body
         ul.pages
-            li.chatPage
-                .page
-                    .chatArea
+            li.chat.page
+                .chatArea
+                    .chatBoard
                         ul.messages
                     input.inputMessage(placeholder='Type here...')
-            li.loginPage
-                .page
-                    .form
-                        h3.title What's your nickname?
-                        input.usernameInput(type='text', maxlength='14')
+                .memList
+                    .userNum
+                    ul.members
+            li.login.page
+                .form
+                    h3.title What's your nickname?
+                    input.usernameInput(type='text', maxlength='14')
