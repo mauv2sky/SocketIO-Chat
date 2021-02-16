@@ -7,6 +7,7 @@ Let's learn socket.io with the official demo !
 3. open chat without specific room division
 ## 📝 To Do
 - [ ] add list of chat members
+- [ ] right align my messages
 - [ ] send/receive picture
 - [ ] private(1:1) chat by clicking member name
 ## 🗂️ Folder tree
