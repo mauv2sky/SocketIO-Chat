@@ -13,6 +13,7 @@ $(function() {
     const $message = $('.messages');
     const $inputMessage = $('.inputMessage');
     const $members = $('.members');
+    const $userNum = $('.userNum');
 
     const $loginPage = $('.login.page');
     const $chatPage = $('.chat.page');
@@ -43,6 +44,12 @@ $(function() {
         const username = data.username;
         const $el = $('<li>').addClass('member').text(username);
         $members.append($el);
+    }
+
+    // update count of members
+    const updateOnlineMemCnt = (data) => {
+        let message = 'ONLINE -- ' + data.numUsers;
+        $userNum.text(message);
     }
 
     // pass connected user count
@@ -256,7 +263,7 @@ $(function() {
         log(message, {
         prepend: true
         });
-        addParticipantsMessage(data);
+        updateOnlineMemCnt(data);
         loadMemberList(data);
     });
 
@@ -268,14 +275,14 @@ $(function() {
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', (data) => {
         log(`${data.username} joined`);
-        addParticipantsMessage(data);
+        updateOnlineMemCnt(data);
         addMemberToList(data);
     });
 
     // Whenever the server emits 'user left', log it in the chat body
     socket.on('user left', (data) => {
         log(`${data.username} left`);
-        addParticipantsMessage(data);
+        updateOnlineMemCnt(data);
         removeChatTyping(data);
         loadMemberList(data);
     });
