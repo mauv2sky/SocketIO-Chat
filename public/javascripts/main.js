@@ -52,17 +52,6 @@ $(function() {
         $userNum.text(message);
     }
 
-    // pass connected user count
-    const addParticipantsMessage = (data) => {
-        let message = '';
-        if (data.numUsers === 1) {
-            message += `there's 1 participant`;
-        } else {
-            message += `there are ${data.numUsers} participants`;
-        }
-        log(message);
-    }
-
     // sets the client's username
     const setUsername = () => {
         username = cleanInput($usernameInput.val().trim());
