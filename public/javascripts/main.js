@@ -76,10 +76,36 @@ $(function() {
         // if there is a non-empty message and socket connection
         if (message && connected) {
             $inputMessage.val('');
-            addChatMessage({username, message});
+            addMySendMessage({username, message});
             // tell server to execute 'new message' and send along one parameter
             socket.emit('new message', message);
         }
+    }
+
+    const addMySendMessage = (data, options) => {
+        // Don't fade the message in if there is a 'X was typing'
+        const $typingMessages = getTypingMessages(data);
+        if ($typingMessages.length !== 0) {
+            options = {
+                fade : false
+            }
+            $typingMessages.remove();
+        }
+
+        // set username, message css
+        const $usernameDiv = $('<span class="username"/>')
+            .text(data.username)
+            .css('color', getUsernameColor(data.username));
+        const $messageBodyDiv = $('<span class="messageBody"/>')
+            .text(data.message);
+
+        const typingClass = data.typing ? 'typing' : '';
+        const $messageDiv = $('<li class="mysendmsg"/>')
+            .data('username', data.username)
+            .addClass(typingClass)
+            .append($usernameDiv, $messageBodyDiv);
+
+        addMessageElement($messageDiv, options);
     }
 
     // log a message
