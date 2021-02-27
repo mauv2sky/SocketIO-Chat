@@ -1,7 +1,7 @@
 # SocketIO-Chat
 Let's learn socket.io with the official demo !
 <br><br>
-## 💡 We can get this following to official demo
+## 💡 We can get this following by the official demo
 1. Overall flow of socket.io
 2. node.js, express, pug
 3. open chat without specific room division
